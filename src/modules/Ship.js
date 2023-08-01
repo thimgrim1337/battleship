@@ -1,24 +1,23 @@
 class Ship {
   #length;
-  #damage;
-  #isSunk;
+  #isDestroyed;
 
   constructor(length) {
     this.#length = length;
-    this.#damage = 0;
-    this.#isSunk = false;
+    this.damage = 0;
+    this.#isDestroyed = false;
   }
 
   getLength = () => this.#length;
-  getSunk = () => this.#isSunk;
+  getSunk = () => this.#isDestroyed;
 
   hit = () => {
-    this.#damage++;
-    this.#isDestroyed();
+    this.damage++;
+    this.#isSunk();
   };
 
-  #isDestroyed = () =>
-    (this.#isSunk = this.#damage === this.#length ? true : false);
+  #isSunk = () =>
+    (this.#isDestroyed = this.damage === this.#length ? true : false);
 }
 
 export default Ship;
