@@ -1,14 +1,12 @@
 class Ship {
-  #length;
   #isDestroyed;
-
   constructor(length) {
-    this.#length = length;
+    this.length = length;
     this.damage = 0;
     this.#isDestroyed = false;
   }
 
-  getLength = () => this.#length;
+  getLength = () => this.length;
   getSunk = () => this.#isDestroyed;
 
   hit = () => {
@@ -17,7 +15,7 @@ class Ship {
   };
 
   #isSunk = () =>
-    (this.#isDestroyed = this.damage === this.#length ? true : false);
+    (this.#isDestroyed = this.damage === this.length ? true : false);
 }
 
 export default Ship;

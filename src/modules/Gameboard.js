@@ -7,6 +7,12 @@ class Gameboard {
   }
 
   placeShip(ship, startCoord, isVerticle) {
+    const [x, y] = startCoord;
+    const boardSize = 9;
+
+    if (x + ship.getLength() > boardSize || y + ship.getLength() > boardSize)
+      return;
+
     this.board.push({
       ship,
       coords: this.getCoords(ship.getLength(), startCoord, isVerticle),
@@ -38,11 +44,20 @@ class Gameboard {
 
       if (hitIndex > -1) {
         ship.coords.splice(hitIndex, 1);
-        return ship.ship.hit();
+        ship.ship.hit();
+        return this.checkSunk();
       }
     });
 
     return this.missedShot.push(hitCoord);
+  }
+
+  checkSunk() {
+    const remainingShips = this.board.filter(
+      (ship) => ship.ship.getSunk() === false
+    );
+
+    if (!remainingShips.length) return 'Koniec';
   }
 }
 
