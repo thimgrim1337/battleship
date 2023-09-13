@@ -4,13 +4,18 @@ class Gameboard {
   constructor() {
     this.ships = [];
     this.board = [];
+    this.boardSize = 9;
   }
+
+  getSize = () => this.boardSize;
 
   placeShip(ship, startCoord, isVerticle) {
     const [x, y] = startCoord;
-    const boardSize = 9;
 
-    if (x + ship.getLength() > boardSize || y + ship.getLength() > boardSize)
+    if (
+      x + ship.getLength() > this.boardSize ||
+      y + ship.getLength() > this.boardSize
+    )
       return;
 
     this.board.push({
@@ -37,22 +42,27 @@ class Gameboard {
   }
 
   recivedAttack(hitCoord) {
+    let hitIndex = undefined;
     this.board.forEach((ship) => {
-      const hitIndex = ship.coords.findIndex(
+      hitIndex = ship.coords.findIndex(
         (coord) => coord[0] === hitCoord[0] && coord[1] === hitCoord[1]
       );
-
-      if (hitIndex > -1) {
-        ship.coords.splice(hitIndex, 1);
-        ship.ship.hit();
-        return this.checkSunk();
-      }
+      if (hitIndex > -1) this.takeDamage(ship, hitIndex);
     });
 
-    return this.missedShot.push(hitCoord);
+    if (hitIndex !== undefined && hitIndex > -1) return true;
+
+    this.missedShot.push(hitCoord);
+    return false;
   }
 
-  checkSunk() {
+  takeDamage(ship, hitIndex) {
+    ship.ship.hit();
+    ship.coords.splice(hitIndex, 1);
+    this.isShipAvaiable();
+  }
+
+  isShipAvaiable() {
     const remainingShips = this.board.filter(
       (ship) => ship.ship.getSunk() === false
     );

@@ -1,4 +1,3 @@
-import { experiments } from 'webpack';
 import Gameboard from '../src/modules/Gameboard';
 import Ship from '../src/modules/Ship';
 
@@ -38,7 +37,7 @@ describe('test class Gameboard', () => {
   test('prevent to place a ship out of the board', () => {
     const ship = new Ship(3);
     gameboard.placeShip(ship, [9, 0], true);
-    expect(gameboard.board[0]).toEqual();
+    expect(gameboard.board[0]).toEqual(undefined);
   });
 
   test('receiveAttack method to be defined', () => {
@@ -48,7 +47,7 @@ describe('test class Gameboard', () => {
   test('receiveAttack hit work', () => {
     const ship = new Ship(3);
     gameboard.placeShip(ship, [0, 0], true);
-    gameboard.recivedAttack([0, 0]);
+    expect(gameboard.recivedAttack([0, 0])).toBe(true);
     expect(gameboard.board[0].ship.damage).toBe(1);
     expect(gameboard.board[0].coords).toEqual([
       [1, 0],
@@ -59,7 +58,7 @@ describe('test class Gameboard', () => {
   test('receiveAttack miss work', () => {
     const ship = new Ship(3);
     gameboard.placeShip(ship, [0, 0], true);
-    gameboard.recivedAttack([3, 3]);
+    expect(gameboard.recivedAttack([3, 3])).toBe(false);
     expect(gameboard.board[0].ship.damage).toBe(0);
     expect(gameboard.missedShot).toEqual([[3, 3]]);
     expect(gameboard.board[0].coords).toEqual([
@@ -77,6 +76,6 @@ describe('test class Gameboard', () => {
     gameboard.recivedAttack([2, 0]);
     expect(gameboard.board[0].ship.damage).toBe(3);
     expect(gameboard.board[0].coords).toEqual([]);
-    expect(gameboard.checkSunk()).toBe('Koniec');
+    expect(gameboard.isShipAvaiable()).toBe('Koniec');
   });
 });

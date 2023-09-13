@@ -9,10 +9,11 @@ class Ship {
   getLength = () => this.length;
   getSunk = () => this.#isDestroyed;
 
-  hit = () => {
+  hit() {
     this.damage++;
     this.#isSunk();
-  };
+    return true;
+  }
 
   #isSunk = () =>
     (this.#isDestroyed = this.damage === this.length ? true : false);
