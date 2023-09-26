@@ -2,7 +2,6 @@ class Gameboard {
   missedShot = [];
 
   constructor() {
-    this.ships = [];
     this.board = [];
     this.boardSize = 9;
   }
@@ -53,6 +52,7 @@ class Gameboard {
     if (hitIndex !== undefined && hitIndex > -1) return true;
 
     this.missedShot.push(hitCoord);
+    console.log(hitCoord);
     return false;
   }
 

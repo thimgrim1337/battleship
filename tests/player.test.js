@@ -18,7 +18,7 @@ describe('Test class Player', () => {
     expect(player.attack([3, 3], gameboard)).toBe(false);
   });
 
-  test('AI randomAttack method', () => {
+  test.only('AI randomAttack method', () => {
     expect(player.randomAttack).toBeDefined();
   });
 });

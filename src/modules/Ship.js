@@ -1,7 +1,8 @@
 class Ship {
   #isDestroyed;
-  constructor(length) {
+  constructor(name, length) {
     this.length = length;
+    this.name = name;
     this.damage = 0;
     this.#isDestroyed = false;
   }
