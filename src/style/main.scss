@@ -1,0 +1,111 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.game {
+  height: 100vh;
+  border: 2px solid red;
+
+  display: grid;
+  grid-template-columns: 250px auto;
+  grid-template-rows: auto 1fr auto;
+  place-items: center;
+
+  &__header {
+    grid-column: 1 / -1;
+  }
+
+  &__footer  {
+    grid-column: 1 / -1;
+
+  }
+
+  &__ships {
+    grid-column: 1 / 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__gameboards {
+    grid-column: 2 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+
+.gameboard {
+  width: 600px;
+  height: 600px;
+  border: 1px solid black;
+
+  &--player {
+    margin-right: 5rem;
+  }
+
+  &__cells {
+    display: grid;
+    grid-template-columns: repeat(11, 50px);
+    grid-template-rows: repeat(11, 50px);
+  }
+
+  &__cell {
+    border: 1px solid black;
+    &:hover {
+      cursor: pointer;
+      background-color: #ddd;
+    }
+  }
+}
+
+
+.header {
+  place-items: center;
+
+  &--column {
+    grid-column: 2 / -1 ;
+    display: grid;
+    grid-template-columns: repeat(10, 50px);
+  }
+
+  &--rows {
+    grid-row: 2 / -1;
+    display: grid;
+    grid-template-rows: repeat(10, 50px);
+  }
+}
+
+.ship {
+  border: 1px solid black;
+  height: 50px;
+  cursor: move;
+
+  &:hover {
+    background-color: #777;
+  }
+
+  &--5 {
+    width: 250px;
+  }
+
+  &--4 {
+    width: 200px;
+  }
+  &--3 {
+    width: 150px;
+  }
+  &--2 {
+    width: 100px;
+  }
+}
+
+.cell {
+  &--placed {
+    background-color: #ccc;
+  }
+}

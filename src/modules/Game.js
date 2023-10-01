@@ -18,8 +18,8 @@ class Game {
   static activePlayer;
 
   static createPlayer(playerName) {
-    this.player = new Player(playerName);
-    this.ai = new Player('AI');
+    this.player = new Player(playerName, this.playerGameboard);
+    this.ai = new Player('AI', this.aiGameboard);
 
     this.activePlayer = this.player;
   }
@@ -30,16 +30,16 @@ class Game {
   }
 
   static placeShips() {
-    this.playerGameboard.placeShip(this.ships[0], [0, 0], false);
+    this.playerGameboard.placeShip(this.ships[0], [0, 0], true);
     this.playerGameboard.placeShip(this.ships[1], [2, 3], false);
-    this.aiGameboard.placeShip(this.ships[0], [0, 0], false);
-    this.aiGameboard.placeShip(this.ships[1], [2, 3], false);
+    this.aiGameboard.placeShip(this.ships[0], [1, 1], false);
+    this.aiGameboard.placeShip(this.ships[1], [2, 4], true);
   }
 
   static takeTurn(coord) {
     if (this.activePlayer === this.player) {
-      this.player.attack(coord, this.aiGameboard);
       this.activePlayer = this.ai;
+      return this.player.attack(coord, this.aiGameboard);
     }
 
     if (this.activePlayer === this.ai) {

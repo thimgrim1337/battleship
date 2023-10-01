@@ -1,7 +1,8 @@
 class Player {
   takenMoves = [];
-  constructor(name) {
+  constructor(name, gameboard) {
     this.name = name;
+    this.gameboard = gameboard;
   }
 
   attack = (coord, gameboard) => gameboard.recivedAttack(coord);

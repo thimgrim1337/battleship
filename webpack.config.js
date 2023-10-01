@@ -27,7 +27,7 @@ module.exports = {
       },
       {
         test: /\.js$/i,
-        exclude: /node_modules/,
+        exclude: [/node_modules/],
         use: {
           loader: 'babel-loader',
           options: {
@@ -45,7 +45,7 @@ module.exports = {
       },
       {
         test: /\.jsx?$/,
-        exclude: ['node_modules'],
+        exclude: [/node_modules/],
         use: ['babel-loader'],
       },
     ],
