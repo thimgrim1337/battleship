@@ -1,5 +1,5 @@
 class Gameboard {
-  missedShot = [];
+  missedShot = new Set();
 
   constructor() {
     this.board = [];
@@ -42,18 +42,19 @@ class Gameboard {
 
   recivedAttack(hitCoord) {
     let hitIndex = undefined;
-    this.board.forEach((ship) => {
+
+    return this.board.some((ship) => {
       hitIndex = ship.coords.findIndex(
         (coord) => coord[0] === hitCoord[0] && coord[1] === hitCoord[1]
       );
-      if (hitIndex > -1) this.takeDamage(ship, hitIndex);
+
+      if (hitIndex > -1) {
+        this.takeDamage(ship, hitIndex);
+        return true;
+      }
+      this.missedShot.add(hitCoord);
+      return false;
     });
-
-    if (hitIndex !== undefined && hitIndex > -1) return true;
-
-    this.missedShot.push(hitCoord);
-    console.log(hitCoord);
-    return false;
   }
 
   takeDamage(ship, hitIndex) {
@@ -67,7 +68,7 @@ class Gameboard {
       (ship) => ship.ship.getSunk() === false
     );
 
-    if (!remainingShips.length) return 'Koniec';
+    if (!remainingShips.length) console.log('The End');
   }
 }
 

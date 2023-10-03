@@ -39,7 +39,7 @@ class Game {
   static takeTurn(coord) {
     if (this.activePlayer === this.player) {
       this.activePlayer = this.ai;
-      return this.player.attack(coord, this.aiGameboard);
+      this.player.attack(coord, this.aiGameboard);
     }
 
     if (this.activePlayer === this.ai) {
