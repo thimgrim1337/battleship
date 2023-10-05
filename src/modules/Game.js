@@ -32,20 +32,16 @@ class Game {
   static placeShips() {
     this.playerGameboard.placeShip(this.ships[0], [0, 0], true);
     this.playerGameboard.placeShip(this.ships[1], [2, 3], false);
-    this.aiGameboard.placeShip(this.ships[0], [1, 1], false);
-    this.aiGameboard.placeShip(this.ships[1], [2, 4], true);
+    this.aiGameboard.placeShip(this.ships[2], [1, 1], false);
+    this.aiGameboard.placeShip(this.ships[3], [2, 4], true);
   }
 
   static takeTurn(coord) {
-    if (this.activePlayer === this.player) {
-      this.activePlayer = this.ai;
-      this.player.attack(coord, this.aiGameboard);
-    }
+    return this.player.attack(coord, this.aiGameboard);
+  }
 
-    if (this.activePlayer === this.ai) {
-      this.ai.randomAttack(this.playerGameboard);
-      this.activePlayer = this.player;
-    }
+  static takeTurnAI() {
+    return this.ai.randomAttack(this.playerGameboard);
   }
 }
 

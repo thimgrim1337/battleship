@@ -1,5 +1,5 @@
 class Gameboard {
-  missedShot = new Set();
+  missedShots = new Set();
 
   constructor() {
     this.board = [];
@@ -49,17 +49,16 @@ class Gameboard {
       );
 
       if (hitIndex > -1) {
-        this.takeDamage(ship, hitIndex);
+        this.takeDamage(ship);
         return true;
       }
-      this.missedShot.add(hitCoord);
+      this.missedShots.add(hitCoord);
       return false;
     });
   }
 
-  takeDamage(ship, hitIndex) {
+  takeDamage(ship) {
     ship.ship.hit();
-    ship.coords.splice(hitIndex, 1);
     this.isShipAvaiable();
   }
 
