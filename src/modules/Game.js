@@ -1,3 +1,4 @@
+import { AI } from './Player';
 import Player from './Player';
 import Gameboard from './Gameboard';
 import Ship from './Ship';
@@ -19,7 +20,7 @@ class Game {
 
   static createPlayer(playerName) {
     this.player = new Player(playerName, this.playerGameboard);
-    this.ai = new Player('AI', this.aiGameboard);
+    this.ai = new AI('AI', this.aiGameboard);
 
     this.activePlayer = this.player;
   }
@@ -37,11 +38,19 @@ class Game {
   }
 
   static takeTurn(coord) {
-    return this.player.attack(coord, this.aiGameboard);
+    return {
+      isHit: this.player.attack(coord, this.aiGameboard),
+      hitCoord: coord,
+      player: this.player,
+    };
   }
 
   static takeTurnAI() {
-    return this.ai.randomAttack(this.playerGameboard);
+    return {
+      isHit: this.ai.randomAttack(this.playerGameboard),
+      hitCoord: this.ai.getLastMove(),
+      player: this.ai,
+    };
   }
 }
 

@@ -42,6 +42,9 @@ class Gameboard {
 
   recivedAttack(hitCoord) {
     let hitIndex = undefined;
+    !Array.isArray(hitCoord)
+      ? (hitCoord = JSON.parse(hitCoord))
+      : (hitCoord = hitCoord);
 
     return this.board.some((ship) => {
       hitIndex = ship.coords.findIndex(
@@ -50,7 +53,7 @@ class Gameboard {
 
       if (hitIndex > -1) {
         this.takeDamage(ship);
-        return true;
+        return hitCoord;
       }
       this.missedShots.add(hitCoord);
       return false;

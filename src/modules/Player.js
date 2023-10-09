@@ -1,33 +1,39 @@
+import numberGenerator from './Utils';
+
 class Player {
-  takenMoves = [];
   constructor(name, gameboard) {
     this.name = name;
     this.gameboard = gameboard;
   }
 
   attack = (coord, gameboard) => gameboard.recivedAttack(coord);
+}
+
+export class AI extends Player {
+  takenMoves = [];
+  constructor(name, gameboard) {
+    super(name, gameboard);
+  }
 
   randomAttack(gameboard) {
-    let flag = true;
-    let [col, row] = this.numberGenerator();
+    let isValidMove = true;
+    let [col, row] = numberGenerator();
 
-    while (flag) {
+    while (isValidMove) {
       if (
         this.takenMoves.find((coord) => coord[0] === col && coord[1] === row)
       ) {
-        [col, row] = this.numberGenerator();
+        [col, row] = numberGenerator();
+      } else {
+        this.takenMoves.push([col, row]);
+        isValidMove = !isValidMove;
+        return this.attack([col, row], gameboard);
       }
-      this.takenMoves.push([col, row]);
-      flag = false;
-      return this.attack([col, row], gameboard);
     }
   }
 
-  numberGenerator = () => {
-    const row = Math.floor(Math.random() * 9);
-    const col = Math.floor(Math.random() * 9);
-    return [col, row];
-  };
+  getLastMove = () =>
+    JSON.stringify(this.takenMoves[this.takenMoves.length - 1]);
 }
 
 export default Player;
