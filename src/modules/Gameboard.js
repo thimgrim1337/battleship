@@ -3,41 +3,36 @@ class Gameboard {
 
   constructor() {
     this.board = [];
-    this.boardSize = 9;
+    this.boardSize = 10;
   }
 
   getSize = () => this.boardSize;
 
   placeShip(ship, startCoord, isVerticle) {
-    const [x, y] = startCoord;
+    const coords = [];
+    let [row, col] = startCoord.split('').map(Number);
+    startCoord = parseInt(startCoord);
+
+    if (startCoord < 10) {
+      (row = 0), (col = startCoord);
+    }
 
     if (
-      x + ship.getLength() > this.boardSize ||
-      y + ship.getLength() > this.boardSize
+      (!isVerticle && col + ship.length - 1 > 9) ||
+      (isVerticle && row + ship.length - 1 > 9)
     )
       return;
 
+    for (let i = 0; i < ship.length; i++) {
+      !isVerticle
+        ? coords.push(startCoord + i)
+        : coords.push(startCoord + i * 10);
+    }
+
     this.board.push({
       ship,
-      coords: this.getCoords(ship.getLength(), startCoord, isVerticle),
+      coords,
     });
-  }
-
-  getCoords(shipLength, startCoord, isVerticle) {
-    const coords = [startCoord];
-    const [x, y] = startCoord;
-
-    if (!isVerticle) {
-      for (let i = 1; i < shipLength; i++) {
-        coords.push([x, y + i]);
-      }
-      return coords;
-    }
-
-    for (let i = 1; i < shipLength; i++) {
-      coords.push([x + i, y]);
-    }
-    return coords;
   }
 
   recivedAttack(hitCoord) {

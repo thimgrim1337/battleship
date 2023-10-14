@@ -30,11 +30,8 @@ class Game {
     this.aiGameboard = new Gameboard();
   }
 
-  static placeShips() {
-    this.playerGameboard.placeShip(this.ships[0], [0, 0], true);
-    this.playerGameboard.placeShip(this.ships[1], [2, 3], false);
-    this.aiGameboard.placeShip(this.ships[2], [1, 1], false);
-    this.aiGameboard.placeShip(this.ships[3], [2, 4], true);
+  static placeShips(startCoord, isVerticle) {
+    this.playerGameboard.placeShip(this.ships[0], startCoord, isVerticle);
   }
 
   static takeTurn(coord) {
