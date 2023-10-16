@@ -1,4 +1,6 @@
-import numberGenerator from './Utils';
+import randomStartCoord from './Utils';
+import { randomIsVerticle } from './Utils';
+import { randomMove } from './Utils';
 
 class Player {
   constructor(name, gameboard) {
@@ -15,25 +17,39 @@ export class AI extends Player {
     super(name, gameboard);
   }
 
-  randomAttack(gameboard) {
-    let isValidMove = true;
-    let [col, row] = numberGenerator();
+  randomPlaceShip(ship) {
+    let isVerticle = randomIsVerticle();
+    let startCoord = randomStartCoord();
+    let searchCell = true;
 
-    while (isValidMove) {
-      if (
-        this.takenMoves.find((coord) => coord[0] === col && coord[1] === row)
-      ) {
-        [col, row] = numberGenerator();
-      } else {
-        this.takenMoves.push([col, row]);
-        isValidMove = !isValidMove;
-        return this.attack([col, row], gameboard);
+    while (searchCell) {
+      if (this.gameboard.placeShip(ship, startCoord, isVerticle))
+        searchCell = false;
+      else {
+        isVerticle = randomIsVerticle();
+        startCoord = randomStartCoord();
       }
     }
   }
 
-  getLastMove = () =>
-    JSON.stringify(this.takenMoves[this.takenMoves.length - 1]);
+  randomAttack(gameboard) {
+    let move = randomMove();
+    let moveTaken = this.takenMoves.includes(move);
+
+    this.takenMoves.push(move);
+
+    while (moveTaken) {
+      move = randomMove();
+      if (!this.takenMoves.includes(move)) {
+        this.takenMoves.push(move);
+        moveTaken = false;
+      }
+    }
+
+    return gameboard.recivedAttack(move);
+  }
+
+  getLastMove = () => this.takenMoves[this.takenMoves.length - 1];
 }
 
 export default Player;

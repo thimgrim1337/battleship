@@ -4,13 +4,13 @@ import Game from './modules/Game';
 Game.createGameboard();
 Game.createPlayer('Dawid');
 Game.placeShips('0', false);
-Game.placeShips('45', true);
+Game.placeShipsAI();
 
 renderGameboard(Game.player);
 renderGameboard(Game.ai);
 
 renderShips(Game.player);
-// renderShips(Game.ai);
+renderShips(Game.ai);
 
 document
   .querySelectorAll('.gameboard--ai .cell')
@@ -75,13 +75,9 @@ function renderShips(player) {
 
 function pickCell(e) {
   const hitCoord = e.target.dataset.coord;
-  console.log(e.target.dataset.coord);
+  renderShoot(Game.takeTurn(hitCoord));
 
-  // renderShoot(Game.takeTurn(hitCoord));
-
-  // setTimeout(() => {
-  //   renderShoot(Game.takeTurnAI());
-  // }, 2000);
+  renderShoot(Game.takeTurnAI());
 }
 
 function renderShoot({ isHit, hitCoord, player }) {

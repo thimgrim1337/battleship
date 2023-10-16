@@ -34,6 +34,11 @@ class Game {
     this.playerGameboard.placeShip(this.ships[0], startCoord, isVerticle);
   }
 
+  static placeShipsAI() {
+    this.ai.randomPlaceShip(this.ships[1]);
+    this.ai.randomPlaceShip(this.ships[2]);
+  }
+
   static takeTurn(coord) {
     return {
       isHit: this.player.attack(coord, this.aiGameboard),

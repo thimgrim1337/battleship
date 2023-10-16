@@ -1,7 +1,12 @@
-function numberGenerator() {
-  const row = Math.floor(Math.random() * 9);
-  const col = Math.floor(Math.random() * 9);
-  return [col, row];
+function randomStartCoord() {
+  return String(Math.floor(Math.random() * 100));
+}
+export function randomIsVerticle() {
+  return Math.floor(Math.random() * 2) === 0 ? false : true;
 }
 
-export default numberGenerator;
+export function randomMove() {
+  return Math.floor(Math.random() * 100);
+}
+
+export default randomStartCoord;

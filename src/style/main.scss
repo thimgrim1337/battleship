@@ -93,6 +93,14 @@ body {
   &:hover {
     background-color: #ddd;
   }
+
+  &--hit {
+    background-color: red;
+  }
+
+  &--miss {
+    background-color: green;
+  }
 }
 
 .footer {
