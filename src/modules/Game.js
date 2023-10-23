@@ -5,11 +5,26 @@ import Ship from './Ship';
 
 class Game {
   static ships = [
-    new Ship('Carrier', 5),
-    new Ship('Battleship', 4),
-    new Ship('Destroyer', 3),
-    new Ship('Submarine', 3),
-    new Ship('Patrol Boat', 2),
+    {
+      name: 'Carrier',
+      length: 5,
+    },
+    {
+      name: 'Battleship',
+      length: 4,
+    },
+    {
+      name: 'Destroyer',
+      length: 3,
+    },
+    {
+      name: 'Submarine',
+      length: 3,
+    },
+    {
+      name: 'Patrol Boat',
+      length: 2,
+    },
   ];
   static player;
   static playerGameboard;
@@ -30,12 +45,21 @@ class Game {
     this.aiGameboard = new Gameboard();
   }
 
-  static placeShip(ship, startCoord, isVerticle) {
-    this.playerGameboard.placeShip(ship, startCoord, isVerticle);
+  static placeShip({ name, length }, startCoord, isVerticle) {
+    this.playerGameboard.placeShip(
+      new Ship(name, length),
+      startCoord,
+      isVerticle
+    );
+    console.log(this.playerGameboard);
   }
 
   static placeShipsAI() {
-    this.ships.forEach((ship) => this.ai.randomPlaceShip(ship));
+    this.ships.forEach((ship) =>
+      this.ai.randomPlaceShip(new Ship(ship.name, ship.length))
+    );
+
+    console.log('gotowe');
   }
 
   static takeTurn(coord) {

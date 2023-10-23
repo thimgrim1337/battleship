@@ -21,14 +21,10 @@ class Gameboard {
     const validCell = this.isValidCell(ship, coords, isVerticle);
     if (validCell === false) return false;
 
-    console.log(validCell);
-
     this.board.push({
       ship,
       coords,
     });
-
-    console.log(this.board);
 
     return true;
   }
@@ -78,6 +74,8 @@ class Gameboard {
     const remainingShips = this.board.filter(
       (ship) => ship.ship.getSunk() === false
     );
+
+    console.log(remainingShips);
 
     if (!remainingShips.length) console.log('The End');
   }

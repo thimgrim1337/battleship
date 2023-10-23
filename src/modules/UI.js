@@ -1,5 +1,8 @@
 import Game from './Game';
 class UI {
+  static isVertical = false;
+  static ships = document.querySelectorAll('.ship');
+
   static initEventListeners() {
     document
       .querySelectorAll('.gameboard--ai .cell')
@@ -7,7 +10,11 @@ class UI {
         aiCell.addEventListener('click', UI.pickCell, { once: true })
       );
 
-    document.querySelectorAll('.ship').forEach((ship) => {
+    document
+      .querySelector('.btn--rotate')
+      .addEventListener('click', UI.shipRotate);
+
+    UI.ships.forEach((ship) => {
       ship.addEventListener('dragstart', UI.dragStart);
     });
 
@@ -53,6 +60,12 @@ class UI {
       : cell.classList.add('cell--miss');
   }
 
+  static shipRotate() {
+    UI.ships.forEach((ship) => ship.classList.toggle('ship--rotate'));
+    UI.ships[0].parentElement.classList.toggle('ships--row');
+    UI.isVertical = !UI.isVertical;
+  }
+
   static pickCell(e) {
     const hitCoord = e.target.dataset.coord;
     UI.renderShoot(Game.takeTurn(hitCoord));
@@ -60,6 +73,10 @@ class UI {
     setTimeout(() => {
       UI.renderShoot(Game.takeTurnAI());
     }, 1000);
+  }
+
+  static canStart() {
+    return Game.playerGameboard.board.length === 5 ? true : false;
   }
 
   static draggedShip = undefined;
@@ -71,7 +88,7 @@ class UI {
     e.target.classList.add('cell--placed');
   }
   static dragLeave(e) {
-    e.target.style.backgroundColor = 'white';
+    e.target.classList.remove('cell--placed');
   }
 
   static dragDrop(e) {
@@ -79,8 +96,10 @@ class UI {
     const startCoord = e.target.dataset.coord;
     const ship = Game.ships[UI.draggedShip];
 
-    Game.placeShips(ship, startCoord, false);
+    Game.placeShip(ship, startCoord, UI.isVertical);
     UI.renderShips(Game.player);
+
+    if (UI.canStart()) Game.placeShipsAI();
   }
 }
 
