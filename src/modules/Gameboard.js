@@ -10,39 +10,45 @@ class Gameboard {
 
   placeShip(ship, startCoord, isVerticle) {
     const coords = [];
-
-    const validCell = this.isValidCell(ship, startCoord, isVerticle);
-
-    if (validCell === false) return false;
+    startCoord = parseInt(startCoord);
 
     for (let i = 0; i < ship.length; i++) {
       !isVerticle
-        ? coords.push(validCell + i)
-        : coords.push(validCell + i * 10);
+        ? coords.push(startCoord + i)
+        : coords.push(startCoord + i * this.boardSize);
     }
+
+    const validCell = this.isValidCell(ship, coords, isVerticle);
+    if (validCell === false) return false;
+
+    console.log(validCell);
 
     this.board.push({
       ship,
       coords,
     });
 
+    console.log(this.board);
+
     return true;
   }
 
-  isValidCell(ship, startCoord, isVerticle) {
-    let [row, col] = startCoord.split('').map(Number);
-    startCoord = parseInt(startCoord);
+  isValidCell(ship, checkedCoords, isVerticle) {
+    let startCoord = checkedCoords[0];
+    let [row, col] = String(startCoord).split('');
 
-    const coordTaken = this.board.some((ship) =>
-      ship.coords.includes(startCoord)
+    if (col === undefined) {
+      row = 0;
+      col = startCoord;
+    }
+
+    let coordTaken = checkedCoords.some((coord) =>
+      this.board.some((ship) => ship.coords.includes(coord))
     );
 
-    if (startCoord < 10) {
-      (row = 0), (col = startCoord);
-    }
     if (
-      (!isVerticle && col + ship.length - 1 > 9) ||
-      (isVerticle && row + ship.length - 1 > 9) ||
+      (!isVerticle && parseInt(col) + ship.length - 1 > 9) ||
+      (isVerticle && parseInt(row) + ship.length - 1 > 9) ||
       coordTaken
     )
       return false;
@@ -55,8 +61,6 @@ class Gameboard {
     return this.board.some((ship) => {
       if (ship.coords.includes(hitCoord)) {
         this.takeDamage(ship);
-        console.log(hitCoord);
-        console.log('trafiony');
         return true;
       } else {
         this.missedShots.add(hitCoord);
@@ -74,8 +78,6 @@ class Gameboard {
     const remainingShips = this.board.filter(
       (ship) => ship.ship.getSunk() === false
     );
-
-    console.log(remainingShips);
 
     if (!remainingShips.length) console.log('The End');
   }

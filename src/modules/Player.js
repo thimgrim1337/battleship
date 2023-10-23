@@ -18,16 +18,15 @@ export class AI extends Player {
   }
 
   randomPlaceShip(ship) {
-    let isVerticle = randomIsVerticle();
-    let startCoord = randomStartCoord();
+    let startCoord, isVerticle;
     let searchCell = true;
 
     while (searchCell) {
-      if (this.gameboard.placeShip(ship, startCoord, isVerticle))
+      startCoord = randomStartCoord();
+      isVerticle = randomIsVerticle();
+      if (this.gameboard.placeShip(ship, startCoord, isVerticle)) {
         searchCell = false;
-      else {
-        isVerticle = randomIsVerticle();
-        startCoord = randomStartCoord();
+        return true;
       }
     }
   }

@@ -22,7 +22,7 @@ class Game {
     this.player = new Player(playerName, this.playerGameboard);
     this.ai = new AI('AI', this.aiGameboard);
 
-    this.activePlayer = this.player;
+    return [this.player, this.ai];
   }
 
   static createGameboard() {
@@ -30,13 +30,12 @@ class Game {
     this.aiGameboard = new Gameboard();
   }
 
-  static placeShips(startCoord, isVerticle) {
-    this.playerGameboard.placeShip(this.ships[0], startCoord, isVerticle);
+  static placeShip(ship, startCoord, isVerticle) {
+    this.playerGameboard.placeShip(ship, startCoord, isVerticle);
   }
 
   static placeShipsAI() {
-    this.ai.randomPlaceShip(this.ships[1]);
-    this.ai.randomPlaceShip(this.ships[2]);
+    this.ships.forEach((ship) => this.ai.randomPlaceShip(ship));
   }
 
   static takeTurn(coord) {
