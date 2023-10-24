@@ -8,7 +8,7 @@
   <body>
     <div class="game">
       <header class="header">
-        <h1 class="title">Battleship</h1>
+        <h1 class="header__title">Battleship</h1>
       </header>
       <main class="gameboards">
         <div class="gameboard gameboard--player">
@@ -39,6 +39,7 @@
           <div class="cells"></div>
         </div>
         <div class="gameboard gameboard--ai">
+          <div class="gameboard--cover"></div>
           <div class="gameboard-header gameboard-header--row">
             <div>1</div>
             <div>2</div>
@@ -67,11 +68,70 @@
         </div>
       </main>
       <aside class="ships">
-        <div class="ship ship--5" draggable="true" id="0">Carrier</div>
-        <div class="ship ship--4" draggable="true" id="1">Battleship</div>
-        <div class="ship ship--3" draggable="true" id="2">Destroyer</div>
-        <div class="ship ship--3" draggable="true" id="3">Submarine</div>
-        <div class="ship ship--2" draggable="true" id="4">Patrol Boat</div>
+        <div class="ship ship--5">
+          <div class="ship__wrapper">
+            <img
+              class="ship__img"
+              src="img/ship-0.png"
+              alt="Crusier"
+              draggable="true"
+              id="0"
+            />
+          </div>
+          <h3 class="ship__name">Crusier</h3>
+        </div>
+
+        <div class="ship ship--4">
+          <div class="ship__wrapper">
+            <img
+              class="ship__img"
+              src="img/ship-1.png"
+              alt="Battleship"
+              draggable="true"
+              id="1"
+            />
+          </div>
+          <h3 class="ship__name">Battleship</h3>
+        </div>
+
+        <div class="ship ship--3">
+          <div class="ship__wrapper">
+            <img
+              class="ship__img"
+              src="img/ship-2.png"
+              alt="Destroyer"
+              draggable="true"
+              id="2"
+            />
+          </div>
+          <h3 class="ship__name">Destroyer</h3>
+        </div>
+
+        <div class="ship ship--3">
+          <div class="ship__wrapper">
+            <img
+              class="ship__img"
+              src="img/ship-3.png"
+              alt="Submarine"
+              draggable="true"
+              id="3"
+            />
+          </div>
+          <h3 class="ship__name">Submarine</h3>
+        </div>
+
+        <div class="ship ship--2">
+          <div class="ship__wrapper">
+            <img
+              class="ship__img"
+              src="img/ship-4.png"
+              alt="Patrol Boat"
+              draggable="true"
+              id="4"
+            />
+          </div>
+          <h3 class="ship__name">Patrol Boat</h3>
+        </div>
       </aside>
       <div class="options">
         <button class="btn btn--rotate">Rotate</button>

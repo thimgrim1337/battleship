@@ -46,12 +46,11 @@ class Game {
   }
 
   static placeShip({ name, length }, startCoord, isVerticle) {
-    this.playerGameboard.placeShip(
+    return this.playerGameboard.placeShip(
       new Ship(name, length),
       startCoord,
       isVerticle
     );
-    console.log(this.playerGameboard);
   }
 
   static placeShipsAI() {

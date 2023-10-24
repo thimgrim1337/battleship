@@ -1,7 +1,7 @@
 import Game from './Game';
 class UI {
   static isVertical = false;
-  static ships = document.querySelectorAll('.ship');
+  static ships = document.querySelectorAll('.ship img');
 
   static initEventListeners() {
     document
@@ -61,8 +61,10 @@ class UI {
   }
 
   static shipRotate() {
-    UI.ships.forEach((ship) => ship.classList.toggle('ship--rotate'));
-    UI.ships[0].parentElement.classList.toggle('ships--row');
+    UI.ships.forEach((ship) => {
+      ship.parentElement.classList.toggle('ship__wrapper--rotate');
+      ship.classList.toggle('ship__img--rotate');
+    });
     UI.isVertical = !UI.isVertical;
   }
 
@@ -80,11 +82,13 @@ class UI {
   }
 
   static draggedShip = undefined;
+
   static dragStart(e) {
     UI.draggedShip = e.target.id;
   }
   static dragOver(e) {
     e.preventDefault();
+
     e.target.classList.add('cell--placed');
   }
   static dragLeave(e) {
@@ -96,8 +100,8 @@ class UI {
     const startCoord = e.target.dataset.coord;
     const ship = Game.ships[UI.draggedShip];
 
-    Game.placeShip(ship, startCoord, UI.isVertical);
-    UI.renderShips(Game.player);
+    if (Game.placeShip(ship, startCoord, UI.isVertical))
+      UI.renderShips(Game.player);
 
     if (UI.canStart()) Game.placeShipsAI();
   }

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -8,61 +10,69 @@ body {
   display: flex;
   justify-content: center;
 
-  height: 100vh;
+  background: rgb(26,20,140);
+  background: linear-gradient(170deg, rgba(26,20,140,1) 2%, rgba(49,49,218,1) 34%, rgba(0,212,255,1) 100%); 
+
   text-align: center;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .game {
   display: grid;
   grid-template-columns: repeat(2, auto);
   grid-template-rows: repeat(5, auto);
+  gap: 1rem;
 }
 
 .header {
   grid-column: 1 / -1;
   grid-row: 1 / 2;
+
+  &__title {
+    font-size: 2.5rem;
+    padding: 1rem 0;
+  }
 }
+
 
 .ships {
   grid-column: 1 / -1;
   grid-row: 3 / 4;
-  align-self: center;
 
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 250px;
+  justify-content: space-around;
+  flex-grow: 1;
+  gap: 1rem;
+  padding: 1rem 0;
+  border: 2px dashed #fff;
+
 }
 
 .ship {
-  border: 1px solid black;
-  height: 50px;
-  line-height: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: space-between;
 
-  &:hover {
-    cursor: move;
-  }
-
-  &--5 {
-    width: 250px;
-  }
-  &--4 {
-    width: 200px;
-  }
-  &--3 {
-    width: 150px;
-  }
-  &--3 {
-    width: 150px;
-  }
-  &--2 {
-    width: 100px;
+  &__wrapper {
+    &--rotate {
+      height: 250px;
+      display: flex;
+      align-items: center;
+    }
   }
 
-  &--rotate {
-    transform: rotate(90deg);
+  &__img {
+    max-width: 100%;
+    object-fit: contain;
+    
+    &--rotate {
+      transform: rotate(90deg);
+    }
   }
 }
+
 
 .options {
   grid-column: 1 / -1;
@@ -76,11 +86,14 @@ body {
 .btn {
   color: white;
   background: royalblue;
-  border: none;
-  padding: 0.5rem 1rem;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
 
   &:hover {
     cursor: pointer;
+    background-color: rgba($color: #000000, $alpha: 0.3);
   }
 }
 
@@ -95,6 +108,18 @@ body {
   display: grid;
   grid-template-columns: repeat(11, 50px);
   grid-template-rows: repeat(11, 50px);
+
+  position: relative;
+
+  &--cover {
+    width: 500px;
+    height: 500px;
+    background-color: rgba($color: #252525, $alpha: 0.8);
+
+    position: absolute;
+    top: 50px;
+    left: 50px;
+  }
 }
 
 .gameboard-header {
@@ -121,14 +146,14 @@ body {
 }
 
 .cell {
-  border: 1px solid black;
-
-  &--placed {
-    background-color: #ccc;
-  }
+  border: 1px solid #fff;
 
   &:hover {
     background-color: #ddd;
+  }
+
+  &--placed {
+    background-color: #ccc;
   }
 
   &--hit {
