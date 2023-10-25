@@ -9,6 +9,7 @@
     <div class="game">
       <header class="header">
         <h1 class="header__title">Battleship</h1>
+        <div class="header__turn">Place your ships</div>
       </header>
       <main class="gameboards">
         <div class="gameboard gameboard--player">
@@ -68,69 +69,32 @@
         </div>
       </main>
       <aside class="ships">
-        <div class="ship ship--5">
-          <div class="ship__wrapper">
-            <img
-              class="ship__img"
-              src="img/ship-0.png"
-              alt="Crusier"
-              draggable="true"
-              id="0"
-            />
-          </div>
-          <h3 class="ship__name">Crusier</h3>
+        <div class="ship ship--crusier" draggable="true" id="0">
+          <div class="ship__piece"></div>
+          <div class="ship__piece"></div>
+          <div class="ship__piece"></div>
+          <div class="ship__piece"></div>
+          <div class="ship__piece"></div>
         </div>
-
-        <div class="ship ship--4">
-          <div class="ship__wrapper">
-            <img
-              class="ship__img"
-              src="img/ship-1.png"
-              alt="Battleship"
-              draggable="true"
-              id="1"
-            />
-          </div>
-          <h3 class="ship__name">Battleship</h3>
+        <div class="ship ship--battleship" draggable="true" id="1">
+          <div class="ship__piece"></div>
+          <div class="ship__piece"></div>
+          <div class="ship__piece"></div>
+          <div class="ship__piece"></div>
         </div>
-
-        <div class="ship ship--3">
-          <div class="ship__wrapper">
-            <img
-              class="ship__img"
-              src="img/ship-2.png"
-              alt="Destroyer"
-              draggable="true"
-              id="2"
-            />
-          </div>
-          <h3 class="ship__name">Destroyer</h3>
+        <div class="ship ship--destroyer" draggable="true" id="2">
+          <div class="ship__piece"></div>
+          <div class="ship__piece"></div>
+          <div class="ship__piece"></div>
         </div>
-
-        <div class="ship ship--3">
-          <div class="ship__wrapper">
-            <img
-              class="ship__img"
-              src="img/ship-3.png"
-              alt="Submarine"
-              draggable="true"
-              id="3"
-            />
-          </div>
-          <h3 class="ship__name">Submarine</h3>
+        <div class="ship ship--submarine" draggable="true" id="3">
+          <div class="ship__piece"></div>
+          <div class="ship__piece"></div>
+          <div class="ship__piece"></div>
         </div>
-
-        <div class="ship ship--2">
-          <div class="ship__wrapper">
-            <img
-              class="ship__img"
-              src="img/ship-4.png"
-              alt="Patrol Boat"
-              draggable="true"
-              id="4"
-            />
-          </div>
-          <h3 class="ship__name">Patrol Boat</h3>
+        <div class="ship ship--patrol" draggable="true" id="4">
+          <div class="ship__piece"></div>
+          <div class="ship__piece"></div>
         </div>
       </aside>
       <div class="options">

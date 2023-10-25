@@ -9,9 +9,9 @@
 body {
   display: flex;
   justify-content: center;
+  height: 100vh;
 
-  background: rgb(26,20,140);
-  background: linear-gradient(170deg, rgba(26,20,140,1) 2%, rgba(49,49,218,1) 34%, rgba(0,212,255,1) 100%); 
+  background: linear-gradient(170deg, rgb(25, 123, 228) 2%, rgba(49,49,218,1) 34%, rgba(0,212,255,1) 100%); 
 
   text-align: center;
   color: #fff;
@@ -41,35 +41,47 @@ body {
   grid-row: 3 / 4;
 
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   flex-grow: 1;
   gap: 1rem;
   padding: 1rem 0;
   border: 2px dashed #fff;
 
+  &--expand {
+    height: 300px;
+  }
+
 }
 
 .ship {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  justify-content: space-between;
+  align-items: center;
 
-  &__wrapper {
-    &--rotate {
-      height: 250px;
-      display: flex;
-      align-items: center;
-    }
+  &__piece {
+    width: 50px;
+    height: 50px;
+    background-color: rgba($color: #fff, $alpha: .2);
+    border: 1px solid black;
   }
 
-  &__img {
-    max-width: 100%;
-    object-fit: contain;
-    
-    &--rotate {
-      transform: rotate(90deg);
-    }
+  &--crusier {
+    background: url('/src/img/ship-0.png') no-repeat center center;
+  }
+  &--battleship {
+    background: url('/src/img/ship-1.png') no-repeat center center;;
+  }
+  &--destroyer {
+    background: url('/src/img/ship-2.png') no-repeat center center;;
+  }
+  &--submarine {
+    background: url('/src/img/ship-3.png') no-repeat center center;;
+  }
+  &--patrol {
+    background: url('/src/img/ship-4.png') no-repeat center center;;
+  }
+
+  &--rotate {
+    transform: rotate(90deg);
   }
 }
 
@@ -119,6 +131,10 @@ body {
     position: absolute;
     top: 50px;
     left: 50px;
+
+    &.hide {
+      display: none;
+    }
   }
 }
 
@@ -157,11 +173,11 @@ body {
   }
 
   &--hit {
-    background-color: red;
+    background-color: rgb(255, 64, 64);
   }
 
   &--miss {
-    background-color: green;
+    background-color: rgb(225, 255, 58);
   }
 }
 

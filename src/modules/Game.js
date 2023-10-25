@@ -37,6 +37,8 @@ class Game {
     this.player = new Player(playerName, this.playerGameboard);
     this.ai = new AI('AI', this.aiGameboard);
 
+    this.activePlayer = this.player;
+
     return [this.player, this.ai];
   }
 
@@ -57,11 +59,10 @@ class Game {
     this.ships.forEach((ship) =>
       this.ai.randomPlaceShip(new Ship(ship.name, ship.length))
     );
-
-    console.log('gotowe');
   }
 
   static takeTurn(coord) {
+    this.activePlayer = this.ai;
     return {
       isHit: this.player.attack(coord, this.aiGameboard),
       hitCoord: coord,
@@ -70,6 +71,7 @@ class Game {
   }
 
   static takeTurnAI() {
+    this.activePlayer = this.player;
     return {
       isHit: this.ai.randomAttack(this.playerGameboard),
       hitCoord: this.ai.getLastMove(),

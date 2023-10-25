@@ -1,7 +1,16 @@
 import Game from './Game';
 class UI {
   static isVertical = false;
-  static ships = document.querySelectorAll('.ship img');
+  static ships = document.querySelectorAll('.ship');
+  static activePlayer = document.querySelector('.header__turn');
+
+  static initGame() {
+    Game.createGameboard();
+    const [player, ai] = Game.createPlayer('Dawid');
+
+    UI.renderGameboard([player, ai]);
+    UI.initEventListeners();
+  }
 
   static initEventListeners() {
     document
@@ -14,13 +23,16 @@ class UI {
       .querySelector('.btn--rotate')
       .addEventListener('click', UI.shipRotate);
 
+    document
+      .querySelector('.btn--reset')
+      .addEventListener('click', UI.resetGame);
+
     UI.ships.forEach((ship) => {
       ship.addEventListener('dragstart', UI.dragStart);
     });
 
     document.querySelectorAll('.gameboard--player .cell').forEach((cell) => {
       cell.addEventListener('dragover', UI.dragOver);
-      cell.addEventListener('dragleave', UI.dragLeave);
       cell.addEventListener('drop', UI.dragDrop);
     });
   }
@@ -60,20 +72,30 @@ class UI {
       : cell.classList.add('cell--miss');
   }
 
+  static renderTurn() {
+    this.activePlayer.innerText = `${Game.activePlayer.name} turn`;
+  }
+
   static shipRotate() {
     UI.ships.forEach((ship) => {
-      ship.parentElement.classList.toggle('ship__wrapper--rotate');
-      ship.classList.toggle('ship__img--rotate');
+      ship.classList.toggle('ship--rotate');
+      document.querySelector('.ships').classList.toggle('ships--expand');
     });
     UI.isVertical = !UI.isVertical;
+  }
+
+  static resetGame() {
+    location.reload();
   }
 
   static pickCell(e) {
     const hitCoord = e.target.dataset.coord;
     UI.renderShoot(Game.takeTurn(hitCoord));
+    UI.renderTurn();
 
     setTimeout(() => {
       UI.renderShoot(Game.takeTurnAI());
+      UI.renderTurn();
     }, 1000);
   }
 
@@ -86,13 +108,9 @@ class UI {
   static dragStart(e) {
     UI.draggedShip = e.target.id;
   }
+
   static dragOver(e) {
     e.preventDefault();
-
-    e.target.classList.add('cell--placed');
-  }
-  static dragLeave(e) {
-    e.target.classList.remove('cell--placed');
   }
 
   static dragDrop(e) {
@@ -100,10 +118,17 @@ class UI {
     const startCoord = e.target.dataset.coord;
     const ship = Game.ships[UI.draggedShip];
 
-    if (Game.placeShip(ship, startCoord, UI.isVertical))
+    if (Game.placeShip(ship, startCoord, UI.isVertical)) {
+      UI.ships[UI.draggedShip].remove();
       UI.renderShips(Game.player);
+    }
 
-    if (UI.canStart()) Game.placeShipsAI();
+    if (UI.canStart()) {
+      Game.placeShipsAI();
+      document.querySelector('.gameboard--cover').classList.add('hide');
+      document.querySelector('.ships').classList.remove('ships--expand');
+      UI.renderTurn();
+    }
   }
 }
 
